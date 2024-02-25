@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Posts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #c8a2c8; /* Lilac color */
+        }
+        .post-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff; /* White background for posts container */
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .post {
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #ffffff;
+        }
+        .delete-btn {
+            cursor: pointer;
+            color: red;
+            float: right;
+        }
+        .post-img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Connectopia</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="C:\Users\DEEPIKA S\OneDrive\Desktop\Prep\Test\home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="C:\Users\DEEPIKA S\OneDrive\Desktop\Prep\Test\upload_posts.html">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="C:\Users\DEEPIKA S\OneDrive\Desktop\Prep\Test\profile.html">Profile</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container post-container">
+        <h1 class="mt-5 text-center">Upload Posts</h1>
+        <form id="postForm">
+            <div class="form-group">
+                <label for="postContent">Post Content</label>
+                <textarea class="form-control" id="postContent" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="postImage">Post Image</label>
+                <input type="file" class="form-control-file" id="postImage">
+                <img src="#" id="imagePreview" class="post-img" style="display: none;" alt="Image Preview">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Post</button>
+        </form>
+        <div id="postList" class="mt-4"></div>
+    </div>
+
+    <script>
+        // JavaScript for interactive functionality
+        document.getElementById('postForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var postContent = document.getElementById('postContent').value;
+            var postImage = document.getElementById('imagePreview').src;
+            if (postContent.trim() !== '') {
+                addPost(postContent, postImage);
+                document.getElementById('postForm').reset();
+                // Reset image preview
+                document.getElementById('imagePreview').style.display = 'none';
+                document.getElementById('imagePreview').src = '#';
+            }
+        });
+
+        // Function to read and display image preview
+        document.getElementById('postImage').addEventListener('change', function(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var imgPreview = document.getElementById('imagePreview');
+                imgPreview.src = reader.result;
+                imgPreview.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+
+        function addPost(content, image) {
+            var postList = document.getElementById('postList');
+            var postDiv = document.createElement('div');
+            postDiv.className = 'post';
+            postDiv.innerHTML = '<p>' + content + '</p>';
+            if (image && image !== '#') {
+                var postImg = document.createElement('img');
+                postImg.className = 'post-img';
+                postImg.src = image;
+                postDiv.appendChild(postImg);
+            }
+            var deleteBtn = document.createElement('span');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.innerHTML = '&times;';
+            deleteBtn.addEventListener('click', function() {
+                postList.removeChild(postDiv);
+            });
+            postDiv.appendChild(deleteBtn);
+            postList.appendChild(postDiv);
+        }
+    </script>
+</body>
+</html>

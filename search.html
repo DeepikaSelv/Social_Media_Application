@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Users</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #c8a2c8; /* Lilac color */
+        }
+        .search-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff; /* White background */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container search-container">
+        <h2 class="text-center mb-4">Search Users</h2>
+        <form id="searchForm">
+            <div class="form-group">
+                <label for="searchQuery">Search</label>
+                <input type="text" class="form-control" id="searchQuery" placeholder="Enter username">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Search</button>
+        </form>
+        <div id="searchResults" class="mt-4"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript for interactive functionality
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var searchQuery = document.getElementById('searchQuery').value;
+            // For demonstration purposes, let's just log the search query
+            console.log('Search query:', searchQuery);
+            // You can add your logic here to search for users and display the results
+            // For now, let's just display a message
+            var searchResults = document.getElementById('searchResults');
+            searchResults.innerHTML = '<p class="text-center">Search results will appear here.</p>';
+        });
+    </script>
+</body>
+</html>
